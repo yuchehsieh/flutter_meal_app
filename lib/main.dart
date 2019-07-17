@@ -14,9 +14,11 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(
         primaryColor: Colors.blue,
       ),
-      home: CategoriesScreen(),
+      // home: CategoriesScreen(),
+      // initialRoute: '/', // default is '/'
       routes: {
-        '/categroy-meals': (context) => CategoryMealsScreen(),
+        '/': (context) => CategoriesScreen(),
+        CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
       },
     );
   }
