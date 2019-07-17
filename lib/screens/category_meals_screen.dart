@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meals_app/widgets/meal_item.dart';
 
-import './dummy_data.dart';
+import '../dummy_data.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
@@ -24,7 +25,13 @@ class CategoryMealsScreen extends StatelessWidget {
       child: SafeArea(
           child: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Text(categoryMeals[index].title);
+          return MealItem(
+            affordability: categoryMeals[index].affordability,
+            complexity: categoryMeals[index].complexity,
+            duration: categoryMeals[index].duration,
+            imageUrl: categoryMeals[index].imageUrl,
+            title: categoryMeals[index].title,
+          );
         },
         itemCount: categoryMeals.length,
       )),
