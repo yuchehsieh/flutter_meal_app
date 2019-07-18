@@ -11,6 +11,8 @@ class CategoryMealsScreen extends StatelessWidget {
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
 
+    print(routeArgs);
+
     final categoryTitle = routeArgs['categoryTitle'];
     final categoryId = routeArgs['categoryId'];
 

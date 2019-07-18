@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meals_app/widgets/category_item.dart';
 
 import '../dummy_data.dart';
-import '../widgets/category_item.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
+  @override
+  _CategoriesScreenState createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
   Future showCupertinoAlertDialog({BuildContext context, Widget child}) async {
     final dynamic result = await showCupertinoModalPopup<String>(
       context: context,
@@ -19,36 +24,7 @@ class CategoriesScreen extends StatelessWidget {
         middle: const Text('DeliMeal'),
         leading: CupertinoButton(
           child: Icon(CupertinoIcons.collections_solid),
-          onPressed: () => showCupertinoAlertDialog(
-            context: context,
-            child: CupertinoAlertDialog(
-              title: const Text('Discard draft?'),
-              content: Column(
-                children: const <Widget>[
-                  Text('1'),
-                  Text('0'),
-                  Text('1'),
-                  Text('0'),
-                ],
-              ),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: const Text('Yes'),
-                  isDestructiveAction: true,
-                  onPressed: () {
-                    Navigator.pop(context, 'Yes');
-                  },
-                ),
-                CupertinoDialogAction(
-                  child: const Text('Discard'),
-                  isDestructiveAction: true,
-                  onPressed: () {
-                    Navigator.pop(context, 'Discard');
-                  },
-                ),
-              ],
-            ),
-          ),
+          onPressed: () {},
         ),
       ),
       child: SafeArea(
