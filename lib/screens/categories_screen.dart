@@ -56,6 +56,34 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
+  void _showCupertinoAlertDialog(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text('Do you like her ?'),
+          content: Text('Face your heart'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDestructiveAction: false,
+              onPressed: () {
+                Navigator.pop(context, 0);
+              },
+              child: Text('Yes'),
+            ),
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              onPressed: () {
+                Navigator.pop(context, 1);
+              },
+              child: Text('No'),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -63,7 +91,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         middle: const Text('DeliMeal'),
         leading: CupertinoButton(
           child: Icon(CupertinoIcons.collections_solid),
-          onPressed: () => _showCupertinoActionSheet(context),
+          onPressed: () => _showCupertinoAlertDialog(context),
         ),
       ),
       child: SafeArea(
