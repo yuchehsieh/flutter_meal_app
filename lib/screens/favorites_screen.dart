@@ -25,18 +25,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       ),
       child: SafeArea(
         child: Center(
-            child: Column(
-          children: <Widget>[
-            CupertinoButton(
-              child: Icon(CupertinoIcons.share),
-              onPressed: _addCount,
-            ),
-            Text(_count.toString(),
-                style: CupertinoTheme.of(context)
-                    .textTheme
-                    .navLargeTitleTextStyle),
-          ],
-        )),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CupertinoButton(
+                    child: Icon(CupertinoIcons.share),
+                    onPressed: _addCount,
+                  ),
+                  Text('Constraint - MaxHeight: ${constraints.maxHeight}'),
+                  Text('Device Height: ${MediaQuery.of(context).size.height}'),
+                  Text(_count.toString(),
+                      style: CupertinoTheme.of(context)
+                          .textTheme
+                          .navLargeTitleTextStyle),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }
