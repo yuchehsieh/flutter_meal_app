@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meals_app/widgets/category_item.dart';
 
 import '../dummy_data.dart';
@@ -10,6 +11,8 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  DateTime _selectedDate;
+
   // Future _showCupertinoAlertDialog({BuildContext context, Widget child}) async {
   //   final dynamic result = await showCupertinoModalPopup<String>(
   //     context: context,
@@ -84,14 +87,42 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     );
   }
 
+  void _showCupertinoDatePicker(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 300,
+          child: CupertinoDatePicker(
+            onDateTimeChanged: (DateTime value) {
+              setState(() {
+                _selectedDate = value;
+              });
+            },
+            // maximumDate: DateTime.now().add(
+            //   Duration(days: 10),
+            // ),
+            // maximumYear: 2,
+            // minimumYear: 2,
+            mode: CupertinoDatePickerMode.date,
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: const Text('DeliMeal'),
+        middle: Text(
+          _selectedDate == null
+              ? 'DeliMeal'
+              : DateFormat.yMMMd().format(_selectedDate),
+        ),
         leading: CupertinoButton(
           child: Icon(CupertinoIcons.collections_solid),
-          onPressed: () => _showCupertinoAlertDialog(context),
+          onPressed: () => _showCupertinoDatePicker(context),
         ),
       ),
       child: SafeArea(
