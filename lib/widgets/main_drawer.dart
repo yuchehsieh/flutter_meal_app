@@ -55,7 +55,9 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             title: 'Filters',
             onTap: () {
-              Navigator.of(context).pushNamed(FiltersScreen.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(FiltersScreen.routeName);
+              // Navigator.of(context).pushReplacement(MaterialPageRoute());
             },
             icon: Icons.settings,
           ),
