@@ -6,15 +6,21 @@ import '../dummy_data.dart';
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
 
+  final String categoryTitle;
+  final String categoryId;
+
+  CategoryMealsScreen({
+    @required this.categoryId,
+    @required this.categoryTitle,
+  });
+
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    // final routeArgs =
+    //     ModalRoute.of(context).settings.arguments as Map<String, String>;
 
-    print(routeArgs);
-
-    final categoryTitle = routeArgs['categoryTitle'];
-    final categoryId = routeArgs['categoryId'];
+    // final categoryTitle = routeArgs['categoryTitle'];
+    // final categoryId = routeArgs['categoryId'];
 
     final categoryMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);

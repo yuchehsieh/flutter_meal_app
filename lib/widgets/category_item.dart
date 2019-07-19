@@ -10,15 +10,21 @@ class CategoryItem extends StatelessWidget {
   CategoryItem({this.id, this.title, this.color});
 
   void selectCategory(BuildContext context) {
-    // Navigator.push(context,
-    //     CupertinoPageRoute(builder: (context) => CategoryMealsScreen()));
-    Navigator.of(context).pushNamed(
-      CategoryMealsScreen.routeName,
-      arguments: {
-        'categoryId': id,
-        'categoryTitle': title,
-      },
+    Navigator.of(context).push(
+      CupertinoPageRoute(
+        builder: (context) => CategoryMealsScreen(
+          categoryId: id,
+          categoryTitle: title,
+        ),
+      ),
     );
+    // Navigator.of(context).pushNamed(
+    //   CategoryMealsScreen.routeName,
+    //   arguments: {
+    //     'categoryId': id,
+    //     'categoryTitle': title,
+    //   },
+    // );
   }
 
   @override

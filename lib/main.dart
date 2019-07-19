@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       // initialRoute: '/', // default is '/'
       routes: {
         '/': (context) => TabScreen(),
-        CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
-        MealDetailScreen.routeName: (context) => MealDetailScreen(),
+        // CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
+        // MealDetailScreen.routeName: (context) => MealDetailScreen(),
       },
     );
   }

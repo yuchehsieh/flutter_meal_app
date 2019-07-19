@@ -5,6 +5,10 @@ import 'package:meals_app/dummy_data.dart';
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
+  final String mealId;
+
+  MealDetailScreen({@required this.mealId});
+
   Widget buildSectionTitle(
     String titleText,
     BuildContext context,
@@ -43,7 +47,7 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String mealId = ModalRoute.of(context).settings.arguments;
+    // final String mealId = ModalRoute.of(context).settings.arguments;
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) {
       return meal.id == mealId;
     });
@@ -77,7 +81,7 @@ class MealDetailScreen extends StatelessWidget {
                 viewHeight * 0.03,
               ),
               buildContainer(
-                viewHeight * 0.2,
+                viewHeight * 0.18,
                 ListView.builder(
                   itemBuilder: (context, index) {
                     return Container(
@@ -104,7 +108,7 @@ class MealDetailScreen extends StatelessWidget {
                 viewHeight * 0.03,
               ),
               buildContainer(
-                viewHeight * 0.2,
+                viewHeight * 0.18,
                 ListView.builder(
                   itemBuilder: (context, index) {
                     return Column(
