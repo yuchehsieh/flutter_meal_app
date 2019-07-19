@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:meals_app/screens/categories_screen.dart';
 import 'package:meals_app/screens/favorites_screen.dart';
+import 'package:meals_app/screens/filters_screen.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -21,6 +22,10 @@ class _TabScreenState extends State<TabScreen> {
               icon: Icon(CupertinoIcons.search),
               title: Text('Search'),
             ),
+            BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.circle_filled),
+              title: Text('Filter'),
+            ),
           ],
         ),
         tabBuilder: (context, index) {
@@ -34,6 +39,10 @@ class _TabScreenState extends State<TabScreen> {
                 return CupertinoPageScaffold(
                   child: FavoriteScreen(),
                 );
+              });
+            case 2:
+              return CupertinoTabView(builder: (context) {
+                return FiltersScreen();
               });
           }
         });
