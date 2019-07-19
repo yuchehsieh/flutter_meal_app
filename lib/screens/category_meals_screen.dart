@@ -1,26 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:meals_app/dummy_data.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/widgets/meal_item.dart';
 
 // import '../widgets//meal_item.dart';
 
-class CategoryMealsScreen extends StatelessWidget {
+class CategoryMealsScreen extends StatefulWidget {
   static const routeName = '/category-meals';
-  // final String categoryId;
-  // final String categoryTitle;
 
-  // CategoryMealsScreen({this.categoryId, this.categoryTitle});
+  @override
+  _CategoryMealsScreenState createState() => _CategoryMealsScreenState();
+}
+
+class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
+  List<Meal> categoryMeals;
+  String categoryId;
+  String categoryTitle;
+  bool _loadedInitData = false;
+
+  @override
+  void initState() {
+    // something related to ModalRoute.of(context)
+    // would not doing right here.
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_loadedInitData) return;
+    final Map<String, String> routeArgs =
+        ModalRoute.of(context).settings.arguments;
+    categoryTitle = routeArgs['categoryTitle'];
+    categoryId = routeArgs['categoryId'];
+    categoryMeals = DUMMY_MEALS.where((meal) {
+      return meal.categories.contains(categoryId);
+    }).toList();
+    _loadedInitData = true;
+    super.didChangeDependencies();
+  }
+
+  void _removeItem(String mealId) {
+    setState(() {
+      categoryMeals.removeWhere((meal) => meal.id == mealId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final categoryTitle = routeArgs['categoryTitle'];
-    final categoryId = routeArgs['categoryId'];
-    final categoryMeals = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
-
     return Scaffold(
         appBar: AppBar(
           title: Text(categoryTitle),
@@ -34,6 +60,7 @@ class CategoryMealsScreen extends StatelessWidget {
               duration: categoryMeals[index].duration,
               imageUrl: categoryMeals[index].imageUrl,
               title: categoryMeals[index].title,
+              removeItem: _removeItem,
             );
           },
           itemCount: categoryMeals.length,
