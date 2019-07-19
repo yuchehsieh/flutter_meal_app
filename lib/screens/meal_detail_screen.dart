@@ -45,6 +45,38 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
+  void showAlertBeforeRemoveItem(BuildContext context) async {
+    final String result = await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text('Are you sure to Delete'),
+          content: Text('It won\'t recover, make sure to do this'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              isDestructiveAction: false,
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.of(context).pop('no');
+              },
+              child: Text('Let me think!'),
+            ),
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              onPressed: () {
+                Navigator.of(context).pop('yes');
+              },
+              child: Text('Delete'),
+            )
+          ],
+        );
+      },
+    );
+    if (result == 'yes') {
+      Navigator.of(context).pop(mealId);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final String mealId = ModalRoute.of(context).settings.arguments;
@@ -54,6 +86,15 @@ class MealDetailScreen extends StatelessWidget {
 
     final PreferredSizeWidget appBar = CupertinoNavigationBar(
       middle: Text('Meal Detail - $mealId'),
+      trailing: CupertinoButton(
+        child: Icon(
+          CupertinoIcons.delete,
+          size: 26,
+        ),
+        onPressed: () {
+          showAlertBeforeRemoveItem(context);
+        },
+      ),
     );
 
     final mediaQuery = MediaQuery.of(context);
