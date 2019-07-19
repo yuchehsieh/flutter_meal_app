@@ -31,7 +31,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child: Icon(CupertinoIcons.share),
               onPressed: _addCount,
             ),
-            Text(_count.toString()),
+            Text(_count.toString(),
+                style: CupertinoTheme.of(context)
+                    .textTheme
+                    .navLargeTitleTextStyle),
           ],
         )),
       ),

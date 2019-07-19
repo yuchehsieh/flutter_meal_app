@@ -12,7 +12,15 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'DeliMeals',
       theme: CupertinoThemeData(
-        primaryColor: Colors.blue,
+        primaryColor: CupertinoColors.activeBlue,
+        textTheme: CupertinoTextThemeData(
+          navLargeTitleTextStyle: CupertinoTheme.of(context)
+              .textTheme
+              .navLargeTitleTextStyle
+              .copyWith(
+                color: CupertinoColors.activeBlue,
+              ),
+        ),
       ),
       // home: CategoriesScreen(),
       // initialRoute: '/', // default is '/'
