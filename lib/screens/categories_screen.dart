@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/widgets/category_item.dart';
 
 import '../dummy_data.dart';
 
 class CategoriesScreen extends StatefulWidget {
+  final List<Meal> availableMeal;
+
+  CategoriesScreen(this.availableMeal);
+
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
 }
@@ -130,10 +135,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           padding: const EdgeInsets.all(25),
           children: DUMMY_CATEGORIES.map((category) {
             return CategoryItem(
-              id: category.id,
-              title: category.title,
-              color: category.color,
-            );
+                id: category.id,
+                title: category.title,
+                color: category.color,
+                availableMeal: widget.availableMeal);
           }).toList(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,

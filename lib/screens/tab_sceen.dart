@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:meals_app/dummy_data.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/categories_screen.dart';
 import 'package:meals_app/screens/favorites_screen.dart';
 import 'package:meals_app/screens/filters_screen.dart';
@@ -9,6 +11,36 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'vegan': false,
+    'vegetarian': false,
+    'lactos': false,
+  };
+
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _setAvailableMeals(Map<String, bool> filterData) {
+    setState(() {
+      _filters = filterData;
+      _availableMeals = DUMMY_MEALS.where((meal) {
+        if (_filters['gluten'] && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters['vegan'] && !meal.isVegan) {
+          return false;
+        }
+        if (_filters['vegetarian'] && !meal.isVegetarian) {
+          return false;
+        }
+        if (_filters['lactos'] && !meal.isLactoseFree) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -32,7 +64,7 @@ class _TabScreenState extends State<TabScreen> {
           switch (index) {
             case 0:
               return CupertinoTabView(builder: (context) {
-                return CategoriesScreen();
+                return CategoriesScreen(_availableMeals);
               });
             case 1:
               return CupertinoTabView(builder: (context) {
@@ -42,7 +74,7 @@ class _TabScreenState extends State<TabScreen> {
               });
             case 2:
               return CupertinoTabView(builder: (context) {
-                return FiltersScreen();
+                return FiltersScreen(_filters, _setAvailableMeals);
               });
           }
         });

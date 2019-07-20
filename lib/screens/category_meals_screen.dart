@@ -9,10 +9,12 @@ class CategoryMealsScreen extends StatefulWidget {
 
   final String categoryTitle;
   final String categoryId;
+  final List<Meal> availableMeal;
 
   CategoryMealsScreen({
     @required this.categoryId,
     @required this.categoryTitle,
+    @required this.availableMeal,
   });
 
   @override
@@ -27,7 +29,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   void didChangeDependencies() {
     if (_loadedInitialData) return;
 
-    _categoryMeals = DUMMY_MEALS.where((meal) {
+    _categoryMeals = widget.availableMeal.where((meal) {
       return meal.categories.contains(widget.categoryId);
     }).toList();
 

@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/screens/category_meals_screen.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
   final String title;
   final Color color;
+  final List<Meal> availableMeal;
 
-  CategoryItem({this.id, this.title, this.color});
+  CategoryItem({this.id, this.title, this.color, this.availableMeal});
 
   void selectCategory(BuildContext context) {
     Navigator.of(context).push(
@@ -15,6 +17,7 @@ class CategoryItem extends StatelessWidget {
         builder: (context) => CategoryMealsScreen(
           categoryId: id,
           categoryTitle: title,
+          availableMeal: availableMeal,
         ),
       ),
     );
