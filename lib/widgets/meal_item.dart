@@ -13,6 +13,9 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
   final Function removeItem;
 
+  final Function toggleFavoriteMeal;
+  final Function isFavoriteMeal;
+
   MealItem({
     @required this.id,
     @required this.title,
@@ -21,6 +24,8 @@ class MealItem extends StatelessWidget {
     @required this.complexity,
     @required this.affordability,
     @required this.removeItem,
+    this.toggleFavoriteMeal,
+    this.isFavoriteMeal,
   });
 
   String get complexityText {
@@ -60,6 +65,8 @@ class MealItem extends StatelessWidget {
         builder: (context) {
           return MealDetailScreen(
             mealId: id,
+            toggleFavoriteMeal: toggleFavoriteMeal,
+            isFavoriteMeal: isFavoriteMeal,
           );
         },
       ),

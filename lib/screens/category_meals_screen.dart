@@ -11,10 +11,15 @@ class CategoryMealsScreen extends StatefulWidget {
   final String categoryId;
   final List<Meal> availableMeal;
 
+  final Function toggleFavoriteMeal;
+  final Function isFavoriteMeal;
+
   CategoryMealsScreen({
     @required this.categoryId,
     @required this.categoryTitle,
     @required this.availableMeal,
+    this.toggleFavoriteMeal,
+    this.isFavoriteMeal,
   });
 
   @override
@@ -57,20 +62,23 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
         middle: Text(widget.categoryTitle),
       ),
       child: SafeArea(
-          child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return MealItem(
-            id: _categoryMeals[index].id,
-            affordability: _categoryMeals[index].affordability,
-            complexity: _categoryMeals[index].complexity,
-            duration: _categoryMeals[index].duration,
-            imageUrl: _categoryMeals[index].imageUrl,
-            title: _categoryMeals[index].title,
-            removeItem: _removeItem,
-          );
-        },
-        itemCount: _categoryMeals.length,
-      )),
+        child: ListView.builder(
+          itemBuilder: (ctx, index) {
+            return MealItem(
+              id: _categoryMeals[index].id,
+              affordability: _categoryMeals[index].affordability,
+              complexity: _categoryMeals[index].complexity,
+              duration: _categoryMeals[index].duration,
+              imageUrl: _categoryMeals[index].imageUrl,
+              title: _categoryMeals[index].title,
+              removeItem: _removeItem,
+              toggleFavoriteMeal: widget.toggleFavoriteMeal,
+              isFavoriteMeal: widget.isFavoriteMeal,
+            );
+          },
+          itemCount: _categoryMeals.length,
+        ),
+      ),
     );
   }
 }

@@ -6,8 +6,14 @@ class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
   final String mealId;
+  final Function toggleFavoriteMeal;
+  final Function isFavoriteMeal;
 
-  MealDetailScreen({@required this.mealId});
+  MealDetailScreen({
+    @required this.mealId,
+    this.toggleFavoriteMeal,
+    this.isFavoriteMeal,
+  });
 
   Widget buildSectionTitle(
     String titleText,
@@ -86,14 +92,30 @@ class MealDetailScreen extends StatelessWidget {
 
     final PreferredSizeWidget appBar = CupertinoNavigationBar(
       middle: Text('Meal Detail - $mealId'),
-      trailing: CupertinoButton(
-        child: Icon(
-          CupertinoIcons.delete,
-          size: 26,
-        ),
-        onPressed: () {
-          showAlertBeforeRemoveItem(context);
-        },
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          CupertinoButton(
+            child: Icon(
+              CupertinoIcons.delete,
+              size: 26,
+            ),
+            onPressed: () {
+              showAlertBeforeRemoveItem(context);
+            },
+          ),
+          CupertinoButton(
+            child: Icon(
+              isFavoriteMeal(mealId)
+                  ? CupertinoIcons.heart_solid
+                  : CupertinoIcons.heart,
+              size: 26,
+            ),
+            onPressed: () {
+              toggleFavoriteMeal(mealId);
+            },
+          ),
+        ],
       ),
     );
 

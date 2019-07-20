@@ -9,7 +9,17 @@ class CategoryItem extends StatelessWidget {
   final Color color;
   final List<Meal> availableMeal;
 
-  CategoryItem({this.id, this.title, this.color, this.availableMeal});
+  final Function toggleFavoriteMeal;
+  final Function isFavoriteMeal;
+
+  CategoryItem({
+    this.id,
+    this.title,
+    this.color,
+    this.availableMeal,
+    this.toggleFavoriteMeal,
+    this.isFavoriteMeal,
+  });
 
   void selectCategory(BuildContext context) {
     Navigator.of(context).push(
@@ -18,6 +28,8 @@ class CategoryItem extends StatelessWidget {
           categoryId: id,
           categoryTitle: title,
           availableMeal: availableMeal,
+          toggleFavoriteMeal: toggleFavoriteMeal,
+          isFavoriteMeal: isFavoriteMeal,
         ),
       ),
     );

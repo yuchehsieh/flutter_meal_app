@@ -19,6 +19,7 @@ class _TabScreenState extends State<TabScreen> {
   };
 
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeal = [];
 
   void _setAvailableMeals(Map<String, bool> filterData) {
     setState(() {
@@ -41,6 +42,23 @@ class _TabScreenState extends State<TabScreen> {
     });
   }
 
+  bool _isFavoriteMeal(String id) {
+    return _favoriteMeal.any((meal) => meal.id == id);
+  }
+
+  void _toggleFavoriteMeal(String mealId) {
+    final existingIndex = _favoriteMeal.indexWhere((meal) => meal.id == mealId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeal.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeal.add(DUMMY_MEALS.firstWhere((meal) => meal.id == mealId));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -51,8 +69,8 @@ class _TabScreenState extends State<TabScreen> {
               title: Text('Products'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.search),
-              title: Text('Search'),
+              icon: Icon(CupertinoIcons.heart_solid),
+              title: Text('Favorite'),
             ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.circle_filled),
@@ -64,12 +82,20 @@ class _TabScreenState extends State<TabScreen> {
           switch (index) {
             case 0:
               return CupertinoTabView(builder: (context) {
-                return CategoriesScreen(_availableMeals);
+                return CategoriesScreen(
+                  _availableMeals,
+                  _toggleFavoriteMeal,
+                  _isFavoriteMeal,
+                );
               });
             case 1:
               return CupertinoTabView(builder: (context) {
                 return CupertinoPageScaffold(
-                  child: FavoriteScreen(),
+                  child: FavoriteScreen(
+                    _favoriteMeal,
+                    _toggleFavoriteMeal,
+                    _isFavoriteMeal,
+                  ),
                 );
               });
             case 2:

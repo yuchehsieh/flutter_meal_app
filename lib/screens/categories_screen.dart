@@ -8,8 +8,14 @@ import '../dummy_data.dart';
 
 class CategoriesScreen extends StatefulWidget {
   final List<Meal> availableMeal;
+  final Function toggleFavoriteMeal;
+  final Function isFavoriteMeal;
 
-  CategoriesScreen(this.availableMeal);
+  CategoriesScreen(
+    this.availableMeal,
+    this.toggleFavoriteMeal,
+    this.isFavoriteMeal,
+  );
 
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
@@ -135,10 +141,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           padding: const EdgeInsets.all(25),
           children: DUMMY_CATEGORIES.map((category) {
             return CategoryItem(
-                id: category.id,
-                title: category.title,
-                color: category.color,
-                availableMeal: widget.availableMeal);
+              id: category.id,
+              title: category.title,
+              color: category.color,
+              availableMeal: widget.availableMeal,
+              toggleFavoriteMeal: widget.toggleFavoriteMeal,
+              isFavoriteMeal: widget.isFavoriteMeal,
+            );
           }).toList(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200,
